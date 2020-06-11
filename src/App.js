@@ -1,17 +1,49 @@
-import React, { Component } from "react";
-import UseClass from "./UseClass";
-import UseHook from "./UseHook";
+import React from "react";
+import { Switch, Route } from "react-router-dom";
+import Home from "pages/Home";
+import BoardView from "pages/BoardView";
+import CardView from "pages/CardView";
+import Login from "pages/Login";
+import GridView from "pages/GridView";
+import UseClass from "UseClass";
+import UseHook from "UseHook";
+import "style/style.css";
 
-class App extends Component {
-  render() {
-    return (
-      <div style={{ padding: "30px" }}>
+const App = () => {
+  return (
+    <Switch>
+      <Route path="/" exact>
+        <Home />
+      </Route>
+      <Route path="/login" exact>
+        <Login />
+      </Route>
+      <Route path="/b/:bid" exact>
+        <BoardView />
+      </Route>
+      <Route path={`/b/:bid/c/:cid`} exact>
+        <CardView />
+      </Route>
+      <Route path="/grid" exact>
+        <GridView />
+      </Route>
+      <Route path="/useClass" exact>
         <UseClass />
-        <p>==================================</p>
+      </Route>
+      <Route path="/useHook" exact>
         <UseHook />
-      </div>
-    );
-  }
-}
+      </Route>
+      <Route
+        // path 를 따로 정의하지 않으면 모든 상황에 렌더링됨
+        render={({ location }) => (
+          <div>
+            <h2>이 페이지는 존재하지 않습니다:</h2>
+            <p>{location.pathname}</p>
+          </div>
+        )}
+      />
+    </Switch>
+  );
+};
 
 export default App;

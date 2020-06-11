@@ -12,7 +12,7 @@ const useInput = defaultValue => {
   return { value, onChange };
 };
 
-function useFetch(url) {
+const useFetch = url => {
   const [payload, setPayload] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -35,7 +35,7 @@ function useFetch(url) {
   }, []);
 
   return { payload, loading, error };
-}
+};
 
 const UseHook = () => {
   const [count, setCount] = useState(0);
@@ -52,6 +52,7 @@ const UseHook = () => {
 
   const name = useInput("");
   const { payload, loading, error } = useFetch("https://aws.random.cat/meow");
+
   return (
     <div>
       <h3>use hook</h3>
@@ -77,7 +78,7 @@ const UseHook = () => {
       <br />
       {loading && <span>loading your cat</span>}
       {!loading && error && <span>{error}</span>}
-      {!loading && payload && <img src={payload.file} width="200" />}
+      {!loading && payload && <img src={payload.file} width="200" alt="" />}
     </div>
   );
 };
