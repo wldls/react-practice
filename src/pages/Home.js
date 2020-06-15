@@ -1,7 +1,8 @@
 import React from "react";
+import { withRouter } from "react-router-dom";
 import styled from "styled-components";
 import Layout from "components/layout/Layout";
-import Boards from "components/atoms/Boards";
+import BoardContainer from "components/molecules/BoardContainer";
 
 const BoardWrap = styled.div`
   display: flex;
@@ -12,11 +13,10 @@ const Home = () => {
   return (
     <Layout title="board">
       <BoardWrap>
-        <Boards name="new Board" bid="1" theme="orange" />
-        <Boards name="create" />
+        <BoardContainer />
       </BoardWrap>
     </Layout>
   );
 };
 
-export default Home;
+export default withRouter(Home);

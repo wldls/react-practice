@@ -1,6 +1,5 @@
-import React, { useReducer } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import colorCode from "utils/colorCode";
 import Navbar from "components/layout/Navbar";
 
 const Wrap = styled.div`
@@ -26,10 +25,23 @@ const Title = styled.h1`
 `;
 
 const Layout = ({ title, children }) => {
-  // style={theme && { background: colorCode[theme] }}
+  const [theme, setTheme] = useState(null);
+  useEffect(() => {
+    const layoutTheme = localStorage.getItem("layoutTheme");
+    setTheme(layoutTheme);
+  }, []);
+
   return (
-    <Wrap>
-      <Navbar />
+    <Wrap
+      style={
+        !!theme
+          ? { background: theme }
+          : theme === "home"
+          ? { background: "#fff" }
+          : null
+      }
+    >
+      <Navbar theme={theme} />
       <Container>
         <Title>{title}</Title>
         {children}

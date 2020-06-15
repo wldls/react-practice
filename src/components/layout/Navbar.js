@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import styled from "styled-components";
 
 const Header = styled.div`
@@ -7,7 +7,7 @@ const Header = styled.div`
   justify-content: center;
   align-items: center;
   position: relative;
-  background-color: rgba(0, 0, 0, 0.15);
+  background: rgba(0, 0, 0, 0.15);
   height: 32px;
   padding: 4px;
 `;
@@ -22,7 +22,7 @@ const LinkHome = styled(Link)`
   }
 `;
 
-const LinkLogin = styled(Link)`
+const LinkLogin = styled.button`
   position: absolute;
   top: 6px;
   right: 15px;
@@ -35,13 +35,27 @@ const LinkLogin = styled(Link)`
   }
 `;
 
-const Navbar = ({ theme }) => {
+const Navbar = ({ history, theme }) => {
+  const auth = localStorage.getItem("trelloToken");
+  const onLogin = () => {
+    history.push("/login");
+  };
+
+  const onLogout = () => {
+    localStorage.removeItem("trelloToken");
+    history.push("/");
+  };
+
   return (
-    <Header>
+    <Header style={theme === "home" ? { background: "#026AA7" } : null}>
       <LinkHome to="/">Home</LinkHome>
-      <LinkLogin to="/login">Login</LinkLogin>
+      {!auth ? (
+        <LinkLogin onClick={onLogin}>Login</LinkLogin>
+      ) : (
+        <LinkLogin onClick={onLogout}>Logout</LinkLogin>
+      )}
     </Header>
   );
 };
 
-export default Navbar;
+export default withRouter(Navbar);

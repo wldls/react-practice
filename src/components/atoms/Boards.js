@@ -1,9 +1,8 @@
-import React, { useReducer } from "react";
+import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { connect } from "react-redux";
+
 import colorCode from "utils/colorCode";
-import { setTheme } from "modules/theme";
 
 const BoardItem = styled.div`
   width: 23%;
@@ -34,9 +33,9 @@ const Create = styled.span`
   color: #888;
 `;
 
-const Boards = ({ name, theme, bid, setTheme }) => {
+const Boards = ({ name, theme, bid }) => {
   const changeTheme = name => {
-    setTheme(name);
+    localStorage.setItem("layoutTheme", name);
   };
 
   if (name === "create") {
@@ -49,7 +48,13 @@ const Boards = ({ name, theme, bid, setTheme }) => {
     );
   }
   return (
-    <BoardItem style={theme && { background: colorCode[theme] }}>
+    <BoardItem
+      style={
+        theme && theme.indexOf("rgba")
+          ? { background: theme }
+          : { background: colorCode[theme] }
+      }
+    >
       <Link
         to={`/b/${bid}`}
         onClick={() => {
@@ -62,12 +67,4 @@ const Boards = ({ name, theme, bid, setTheme }) => {
   );
 };
 
-const mapStateToProps = state => ({
-  layoutTheme: state.theme.layoutTheme
-});
-
-const mapDispatchToProps = dispatch => ({
-  setTheme: name => dispatch(setTheme(name))
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Boards);
+export default Boards;
