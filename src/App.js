@@ -1,25 +1,56 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container">
+      Hello World
+      <FuncComp initNumber="2"></FuncComp>
+      <ClassComp initNumber="2"></ClassComp>
     </div>
   );
+}
+
+function setRandom() {
+  return Math.floor(Math.random() * 10) + 1;
+}
+
+function FuncComp(props) {
+  const [count, setCount] = useState(props.initNumber);
+  return (
+    <div className="container">
+      <h2>function style component</h2>
+      <p>{count}</p>
+      <input
+        type="button"
+        value="random"
+        onClick={() => {
+          setCount(setRandom());
+        }}
+      />
+    </div>
+  );
+}
+
+class ClassComp extends React.Component {
+  state = {
+    number: this.props.initNumber,
+  };
+  render() {
+    return (
+      <div className="container">
+        <h2>class style component</h2>
+        <p>{this.state.number}</p>
+        <input
+          type="button"
+          value="random"
+          onClick={() => {
+            this.setState({ number: setRandom() });
+          }}
+        />
+      </div>
+    );
+  }
 }
 
 export default App;
