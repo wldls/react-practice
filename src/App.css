@@ -1,3 +1,6 @@
-.App {
-  padding: 0 30px;
+div {
+  border: 5px solid #764abc;
+  margin: 10px;
+  padding: 10px;
+  color: #764abc;
 }
