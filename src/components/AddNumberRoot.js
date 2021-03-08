@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { increment } from "../module/number";
 import AddNumber from "./AddNumber";
 
 class AddNumberRoot extends Component {
@@ -6,10 +8,14 @@ class AddNumberRoot extends Component {
     return (
       <div>
         <h1>Add Number Root</h1>
-        <AddNumber />
+        <AddNumber
+          onClick={(size) => {
+            this.props.increment(size);
+          }}
+        />
       </div>
     );
   }
 }
 
-export default AddNumberRoot;
+export default connect(null, { increment })(AddNumberRoot);
