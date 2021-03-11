@@ -12,14 +12,11 @@ const reducer = (state, action) => {
 };
 
 const Counter = () => {
-  // const [number, setNumber] = useState(0);
   const [number, dispatch] = useReducer(reducer, 0);
   const onIncreate = () => {
-    // setNumber((prevNumber) => prevNumber + 1);
     dispatch({ type: "INCREMENT" });
   };
   const onDecreate = () => {
-    // setNumber((prevNumber) => prevNumber - 1);
     dispatch({ type: "DECREMENT" });
   };
 

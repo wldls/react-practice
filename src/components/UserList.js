@@ -1,15 +1,8 @@
-import React, { useEffect, useContext } from "react";
+import React, { useContext } from "react";
+
 import { UserDispatch } from "../App";
 
 const User = React.memo(function User({ user }) {
-  useEffect(() => {
-    console.log("UserList");
-  });
-
-  const onRemove = (id) => {
-    console.log(id);
-  };
-
   const dispatch = useContext(UserDispatch);
   return (
     <div>
@@ -20,7 +13,10 @@ const User = React.memo(function User({ user }) {
         {user.username}
       </b>
       <span>({user.email})</span>
-      <button type="button" onClick={() => onRemove(user.id)}>
+      <button
+        type="button"
+        onClick={() => dispatch({ type: "REMOVE_USER", id: user.id })}
+      >
         삭제
       </button>
     </div>
