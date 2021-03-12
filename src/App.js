@@ -4,6 +4,7 @@ import CreateUser from "./components/CreateUser";
 import Counter from "./components/Counter";
 import produce from "immer";
 import Users from "./components/Users";
+import { UsersProvider } from "./UsersContext";
 
 const countActiveUsers = (users) => {
   return users.filter((user) => user.active).length;
@@ -77,7 +78,9 @@ const App = () => {
       <UserList users={users} />
       <div>활성 사용자 수 : {count}</div>
       <Counter />
-      <Users />
+      <UsersProvider>
+        <Users />
+      </UsersProvider>
     </UserDispatch.Provider>
   );
 };
